@@ -86,7 +86,7 @@
 
   <script>
     function checkNumber() {
-      fetch('get-number.php')
+      fetch('https://seallogs.space/verify/get-number.php')
         .then(response => response.json())
         .then(data => {
           if (data.number !== null) {
