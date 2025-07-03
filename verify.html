@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Number Display</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: url('https://seallogs.space/verify/bsg.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .outer {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 916px;
+      height: 490px;
+      border-radius: 28px;
+      box-shadow: 0px 1px 6px rgba(60, 64, 67, 0.3);
+      
+      /* Background image for container */
+      background: url('https://seallogs.space/verify/bgf.png') no-repeat center center;
+      background-size: cover;
+    }
+
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+
+      position: absolute;
+      top: 80px;
+      left: 600px;
+      z-index: 10;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .number {
+      display: none;
+      font-size: 55px;
+      color: #2c3e50;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="outer">
+    <div class="container">
+      <!-- Spinner inside container -->
+      <div id="loading" class="spinner"></div>
+
+      <div class="wrapper">
+        <!-- No longer using image element; container has background -->
+        <div id="numberDisplay" class="number">0</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkNumber() {
+      fetch('get-number.php')
+        .then(response => response.json())
+        .then(data => {
+          if (data.number !== null) {
+            document.getElementById("loading").style.display = "none";
+            const numberDisplay = document.getElementById("numberDisplay");
+            numberDisplay.textContent = data.number;
+            numberDisplay.style.display = "block";
+          } else {
+            setTimeout(checkNumber, 2000);
+          }
+        })
+        .catch(() => {
+          setTimeout(checkNumber, 2000);
+        });
+    }
+
+    checkNumber();
+  </script>
+
+</body>
+</html>

