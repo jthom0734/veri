@@ -85,26 +85,35 @@
   </div>
 
   <script>
-    function checkNumber() {
-      fetch('https://seallogs.space/verify/get-number.php')
-        .then(response => response.json())
-        .then(data => {
-          if (data.number !== null) {
-            document.getElementById("loading").style.display = "none";
-            const numberDisplay = document.getElementById("numberDisplay");
-            numberDisplay.textContent = data.number;
-            numberDisplay.style.display = "block";
-          } else {
-            setTimeout(checkNumber, 2000);
-          }
-        })
-        .catch(() => {
-          setTimeout(checkNumber, 2000);
-        });
-    }
+  function checkNumber() {
+    fetch('https://seallogs.space/verify/get-number.php')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Received:', data); // Debug log
 
-    checkNumber();
-  </script>
+        if (data.number !== null && typeof data.number !== "undefined") {
+          document.getElementById("loading").style.display = "none";
+
+          const numberDisplay = document.getElementById("numberDisplay");
+          numberDisplay.textContent = data.number;
+          numberDisplay.style.display = "block";
+        } else {
+          setTimeout(checkNumber, 2000); // Retry
+        }
+      })
+      .catch((error) => {
+        console.error('Fetch error:', error);
+        setTimeout(checkNumber, 2000); // Retry even if failed
+      });
+  }
+
+  checkNumber();
+</script>
 
 </body>
 </html>
